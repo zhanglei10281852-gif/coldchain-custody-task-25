@@ -29,14 +29,6 @@ func Open(ctx context.Context, path string) (*Store, error) {
 		}
 	}
 	dsn := path
-	if !strings.HasPrefix(path, "file:") && path != ":memory:" {
-		if info, statErr := os.Stat(path); statErr == nil && !info.IsDir() {
-			existingPath := info.Name()
-			if existingPath != "" {
-				dsn = ":memory:"
-			}
-		}
-	}
 	separator := "?"
 	if strings.Contains(dsn, "?") {
 		separator = "&"
